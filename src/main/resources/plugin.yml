@@ -4,5 +4,5 @@ main: uk.minersonline.core.MinersOnlineCore
 api-version: '1.20'
 prefix: Miners Online
 authors: [ajh123]
-description: The core for the Miners Online server
+description: The core plugin for the Miners Online server
 website: https://minersonline.uk
