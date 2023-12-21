@@ -53,3 +53,22 @@ processResources {
         expand props
     }
 }
+
+var excluced = [
+    "SubServers.Client.Bukkit-23w32a.jar",
+    "SubServers.Client.Common-23w32a.jar",
+    "GalaxiBase-23w18a.jar"
+]
+
+jar {
+    duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+    from {
+        configurations
+        .runtimeClasspath
+        .collect {
+            if (!excluced.contains(it.name)) {
+                zipTree(it)
+            }
+        }
+    }
+}

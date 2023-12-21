@@ -6,6 +6,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 import uk.minersonline.core.command.LobbyCommand;
 import uk.minersonline.core.display.TabManager;
 
+import java.util.logging.Level;
+
 public final class MinersOnlineCore extends JavaPlugin {
     private BukkitAudiences adventure;
     private SubAPI subAPI;
@@ -34,6 +36,7 @@ public final class MinersOnlineCore extends JavaPlugin {
         this.getCommand("lobby").setExecutor(new LobbyCommand(this));
         this.getCommand("hub").setExecutor(new LobbyCommand(this));
         this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        getLogger().log(Level.INFO, "Miners Online Core loaded successfully!");
     }
 
     @Override
