@@ -22,11 +22,12 @@ public class TabManager implements Listener {
 		BukkitAudiences audience = plugin.adventure();
 		Player player = event.getPlayer();
 		if (audience != null) {
-			String server = plugin.subAPI().getRemotePlayer(player.getUniqueId()).getServerName();
-			Audience playerAudience = audience.player(player);
-			final Component header = Component.text("<center>Miners Online</center>", NamedTextColor.GOLD);
-			final Component footer = Component.text("You are on "+server, NamedTextColor.AQUA);
-			playerAudience.sendPlayerListHeaderAndFooter(header, footer);
+			plugin.subAPI().getRemotePlayer(player.getUniqueId(), (remotePlayer) -> {
+				Audience playerAudience = audience.player(player);
+				final Component header = Component.text("<center>Miners Online</center>", NamedTextColor.GOLD);
+				final Component footer = Component.text("You are on "+remotePlayer.getServerName(), NamedTextColor.AQUA);
+				playerAudience.sendPlayerListHeaderAndFooter(header, footer);
+			});
 		}
 	}
 }
