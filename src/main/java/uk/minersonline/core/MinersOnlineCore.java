@@ -4,6 +4,7 @@ import net.ME1312.SubServers.Client.Bukkit.SubAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.minersonline.core.command.LobbyCommand;
+import uk.minersonline.core.display.JoinLeaveManager;
 import uk.minersonline.core.display.TabManager;
 
 import java.util.logging.Level;
@@ -31,11 +32,19 @@ public final class MinersOnlineCore extends JavaPlugin {
         // API startup logic
         this.adventure = BukkitAudiences.create(this);
         this.subAPI = SubAPI.getInstance();
+
         // Plugin startup logic
+
+        // Event handlers
         getServer().getPluginManager().registerEvents(new TabManager(this), this);
-        this.getCommand("lobby").setExecutor(new LobbyCommand(this));
-        this.getCommand("hub").setExecutor(new LobbyCommand(this));
-        this.getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+        getServer().getPluginManager().registerEvents(new JoinLeaveManager(this), this);
+        // Command handlers
+        getCommand("lobby").setExecutor(new LobbyCommand(this));
+        getCommand("hub").setExecutor(new LobbyCommand(this));
+        // Plugin channels
+        getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
+
+
         getLogger().log(Level.INFO, "Miners Online Core loaded successfully!");
     }
 
@@ -49,6 +58,7 @@ public final class MinersOnlineCore extends JavaPlugin {
         if (this.subAPI != null) {
             this.subAPI = null;
         }
+
         // Plugin shutdown logic
         this.getServer().getMessenger().unregisterOutgoingPluginChannel(this);
     }
