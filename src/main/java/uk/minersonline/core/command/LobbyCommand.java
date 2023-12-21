@@ -25,18 +25,29 @@ public class LobbyCommand implements CommandExecutor {
 	public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
 		if (sender instanceof Player player) {
 			if (player.hasPermission("minersonline.commands.lobby")) {
+				// Get the lobby group
 				this.plugin.subAPI().getGroup("Lobby", (groupServers) -> {
+					// Get all lobby servers
 					Collection<? extends Server> servers = groupServers.value();
+					// Pick a random lobby
 					Server server = random(servers);
+					// Refresh server data
 					server.refresh();
+					// Send message to player
 					player.sendMessage(ChatColor.YELLOW + "Teleporting to "+server.getName());
 
+					// Create a task to run later
 					Bukkit.getScheduler().scheduleSyncDelayedTask(plugin, () -> {
+						// Create a byte array to store a message
 						ByteArrayDataOutput out = ByteStreams.newDataOutput();
+						// Write "Connect" to tell the proxy we want to forward the player
 						out.writeUTF("Connect");
+						// Tell the proxy the server we want to connect to
 						out.writeUTF(server.getName());
+						// Send the message to the player on the "BungeeCord" channel (which will be intercepted
+						// by the proxy)
 						player.sendPluginMessage(plugin, "BungeeCord", out.toByteArray());
-					}, 10L);
+					}, 3L); // Schedule the task 3 ticks later (so the player can read the message
 				});
 				return true;
 			}
