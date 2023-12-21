@@ -6,6 +6,10 @@ prefix: Miners Online
 authors: [ajh123]
 description: The core plugin for the Miners Online server
 website: https://minersonline.uk
+depend:
+  - SubServers-Client-Bukkit
+softdepend:
+  - floodgate
 commands:
   lobby:
     description: Teleports you to the main lobby
@@ -13,3 +17,7 @@ commands:
     permission: minersonline.commands.lobby
     aliases:
       - 'hub'
+permissions:
+  minersonline.commands.lobby:
+    description: Allows access to /hub or /lobby
+    default: true
