@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'uk.minersonline'
+group = 'uk.minersonline.core.spigot'
 version = '1.0-SNAPSHOT'
 
 repositories {
