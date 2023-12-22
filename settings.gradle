@@ -1,4 +1,4 @@
 rootProject.name = 'minersonline'
 include ':core'
 include ':core:spigot'
-
+include ':core:velocity'
