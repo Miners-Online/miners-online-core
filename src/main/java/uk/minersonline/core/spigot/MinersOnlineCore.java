@@ -1,11 +1,11 @@
-package uk.minersonline.core;
+package uk.minersonline.core.spigot;
 
 import net.ME1312.SubServers.Client.Bukkit.SubAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
-import uk.minersonline.core.command.LobbyCommand;
-import uk.minersonline.core.display.JoinLeaveManager;
-import uk.minersonline.core.display.TabManager;
+import uk.minersonline.core.spigot.command.LobbyCommand;
+import uk.minersonline.core.spigot.display.JoinLeaveManager;
+import uk.minersonline.core.spigot.display.TabManager;
 
 import java.util.logging.Level;
 

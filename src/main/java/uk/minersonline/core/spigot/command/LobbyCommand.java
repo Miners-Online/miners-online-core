@@ -1,4 +1,4 @@
-package uk.minersonline.core.command;
+package uk.minersonline.core.spigot.command;
 
 import com.google.common.io.ByteArrayDataOutput;
 import com.google.common.io.ByteStreams;
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
-import uk.minersonline.core.MinersOnlineCore;
+import uk.minersonline.core.spigot.MinersOnlineCore;
 
 import java.util.Collection;
 

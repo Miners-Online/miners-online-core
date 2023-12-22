@@ -1,4 +1,4 @@
-package uk.minersonline.core.display;
+package uk.minersonline.core.spigot.display;
 
 import net.kyori.adventure.audience.Audience;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import uk.minersonline.core.MinersOnlineCore;
+import uk.minersonline.core.spigot.MinersOnlineCore;
 
 public class TabManager implements Listener {
 	private final MinersOnlineCore plugin;

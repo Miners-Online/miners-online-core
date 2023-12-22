@@ -1,6 +1,6 @@
 name: MinersOnlineCore
 version: '${version}'
-main: uk.minersonline.core.MinersOnlineCore
+main: uk.minersonline.core.spigot.MinersOnlineCore
 api-version: '1.20'
 prefix: Miners Online
 authors: [ajh123]
