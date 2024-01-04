@@ -74,7 +74,7 @@ public class LobbyCommand implements SimpleCommand {
 						server.set(serverFound);
 					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					plugin.logger().error("An error occured whilst forawrding a player", e);
 				}
 				// Display result
 				player.sendMessage(Component.text(server.get().getName()+" is not online. Finding another ...").color(NamedTextColor.YELLOW));
