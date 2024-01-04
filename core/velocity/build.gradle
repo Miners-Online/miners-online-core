@@ -11,14 +11,21 @@ repositories {
         name = "papermc-repo"
         url = "https://repo.papermc.io/repository/maven-public/"
     }
+    maven {
+        name = "ME1312.net"
+        url = "https://dev.ME1312.net/maven"
+    }
 }
 
 dependencies {
     compileOnly "com.velocitypowered:velocity-api:3.2.0-SNAPSHOT"
     annotationProcessor "com.velocitypowered:velocity-api:3.2.0-SNAPSHOT"
+    implementation "net.ME1312.SubServers:SubServers.Sync.Velocity:23w32a"
 }
 
-def targetJavaVersion = 11
+def targetJavaVersion = 17
+sourceCompatibility = 17
+targetCompatibility = 17
 java {
     def javaVersion = JavaVersion.toVersion(targetJavaVersion)
     sourceCompatibility = javaVersion
