@@ -12,11 +12,17 @@ import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 
+import net.ME1312.Galaxi.Library.Container.Pair;
+import net.ME1312.SubServers.Client.Common.Network.API.Server;
 import org.slf4j.Logger;
 import net.ME1312.SubServers.Velocity.SubAPI;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 import uk.minersonline.core.velocity.command.LobbyCommand;
+
+import java.util.Collection;
+import java.util.Objects;
+import java.util.UUID;
 
 @Plugin(
 		id = "miners_online_core",
@@ -85,10 +91,27 @@ public class MinersOnlineCore {
 	public void onServerConnected(ServerConnectedEvent event) {
 		Player player = event.getPlayer();
 		this.subAPI().getRemotePlayer(player.getUsername(), (remotePlayer) -> {
-			final Component header = Component.text("Miners Online", NamedTextColor.GOLD);
-			final Component footer = Component.text("You are on "+remotePlayer.getServerName(), NamedTextColor.AQUA);
-			player.getTabList().clearHeaderAndFooter();
-			player.sendPlayerListHeaderAndFooter(header, footer);
+			if (remotePlayer == null) {
+				this.subAPI().getServers((servers) -> {
+					for (Server server : servers.values()) {
+						Collection<Pair<String, UUID>> players = server.getRemotePlayers();
+						for (Pair<String, UUID> pl : players) {
+							if (Objects.equals(pl.key(), player.getUsername())) {
+								final Component header = Component.text("Miners Online", NamedTextColor.GOLD);
+								final Component footer = Component.text("You are on " + server.getName(), NamedTextColor.AQUA);
+								player.getTabList().clearHeaderAndFooter();
+								player.sendPlayerListHeaderAndFooter(header, footer);
+								return;
+							}
+						}
+					}
+				});
+			} else {
+				final Component header = Component.text("Miners Online", NamedTextColor.GOLD);
+				final Component footer = Component.text("You are on " + remotePlayer.getServerName(), NamedTextColor.AQUA);
+				player.getTabList().clearHeaderAndFooter();
+				player.sendPlayerListHeaderAndFooter(header, footer);
+			}
 		});
 	}
 }

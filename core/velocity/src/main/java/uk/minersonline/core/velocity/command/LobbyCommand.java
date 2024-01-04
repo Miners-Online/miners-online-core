@@ -29,6 +29,8 @@ public class LobbyCommand implements SimpleCommand {
 	public void execute(final Invocation invocation) {
 		if (invocation.source() instanceof Player player) {
 			if (player.hasPermission("minersonline.commands.lobby")) {
+				// Send message to player
+				player.sendMessage(Component.text("Finding a lobby...").color(NamedTextColor.YELLOW));
 				// Get the lobby group
 				this.plugin.subAPI().getGroup("Lobby", (groupServers) -> {
 					// Get all lobby servers
@@ -40,7 +42,6 @@ public class LobbyCommand implements SimpleCommand {
 			}
 		}
 		invocation.source().sendMessage(Component.text("You are not allowed to use this command.").color(NamedTextColor.RED));
-		return;
 	}
 
 	@Override
@@ -55,8 +56,6 @@ public class LobbyCommand implements SimpleCommand {
 	}
 
 	public void matchServer(Collection<? extends Server> servers, Player player) {
-		// Send message to player
-		player.sendMessage(Component.text("Finding a lobby...").color(NamedTextColor.YELLOW));
 		boolean found = false;
 		AtomicReference<Server> server = new AtomicReference<>();
 		while (!found) {
@@ -112,7 +111,7 @@ public class LobbyCommand implements SimpleCommand {
 					.buildTask(plugin, () -> {
 						remotePlayer.transfer(server.get().getName());
 					})
-					.repeat(2L, TimeUnit.SECONDS)
+					.delay(2L, TimeUnit.SECONDS)
 					.schedule();
 				});
 			});
