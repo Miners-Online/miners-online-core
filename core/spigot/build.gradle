@@ -2,8 +2,9 @@ plugins {
     id 'java'
 }
 
-group = 'uk.minersonline.core.spigot'
+group = 'uk.minersonline.core-spigot'
 version = '1.0-SNAPSHOT'
+archivesBaseName = "minersonline.core-spigot"
 
 repositories {
     mavenCentral()

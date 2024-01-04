@@ -4,6 +4,7 @@ plugins {
 
 group = 'uk.minersonline.core.velocity'
 version = '1.0-SNAPSHOT'
+archivesBaseName = "minersonline.core-velocity"
 
 repositories {
     mavenCentral()
