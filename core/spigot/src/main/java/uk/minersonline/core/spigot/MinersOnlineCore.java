@@ -4,7 +4,6 @@ import net.ME1312.SubServers.Client.Bukkit.SubAPI;
 import net.kyori.adventure.platform.bukkit.BukkitAudiences;
 import org.bukkit.plugin.java.JavaPlugin;
 import uk.minersonline.core.spigot.display.JoinLeaveManager;
-import uk.minersonline.core.spigot.display.TabManager;
 
 import java.util.logging.Level;
 
@@ -35,7 +34,6 @@ public final class MinersOnlineCore extends JavaPlugin {
         // Plugin startup logic
 
         // Event handlers
-        getServer().getPluginManager().registerEvents(new TabManager(this), this);
         getServer().getPluginManager().registerEvents(new JoinLeaveManager(this), this);
         // Plugin channels
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");

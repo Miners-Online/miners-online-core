@@ -5,11 +5,15 @@ import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
 import com.velocitypowered.api.event.Subscribe;
+import com.velocitypowered.api.event.player.ServerConnectedEvent;
 import com.velocitypowered.api.plugin.Plugin;
+import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
 
 import org.slf4j.Logger;
 import net.ME1312.SubServers.Velocity.SubAPI;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.NamedTextColor;
 import uk.minersonline.core.velocity.command.LobbyCommand;
 
 @Plugin(
@@ -69,5 +73,15 @@ public class MinersOnlineCore {
 		if (this.subAPI != null) {
 			this.subAPI = null;
 		}
+	}
+
+	@Subscribe
+	public void onServerConnected(ServerConnectedEvent event) {
+		Player player = event.getPlayer();
+		this.subAPI().getRemotePlayer(player.getUsername(), (remotePlayer) -> {
+			final Component header = Component.text("Miners Online", NamedTextColor.GOLD);
+			final Component footer = Component.text("You are on "+remotePlayer.getServerName(), NamedTextColor.AQUA);
+			player.sendPlayerListHeaderAndFooter(header, footer);
+		});
 	}
 }
