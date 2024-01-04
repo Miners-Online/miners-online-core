@@ -6,6 +6,7 @@ import com.velocitypowered.api.proxy.server.RegisteredServer;
 import com.velocitypowered.api.proxy.server.ServerPing;
 
 import net.ME1312.SubServers.Client.Common.Network.API.Server;
+import net.ME1312.SubServers.Client.Common.Network.API.SubServer;
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;
 
@@ -54,38 +55,47 @@ public class LobbyCommand implements SimpleCommand {
 	}
 
 	public void matchServer(Collection<? extends Server> servers, Player player) {
+		// Send message to player
+		player.sendMessage(Component.text("Finding a lobby...").color(NamedTextColor.YELLOW));
 		boolean found = false;
 		AtomicReference<Server> server = new AtomicReference<>();
 		while (!found) {
 			Server serverFound = random(servers);
 			// Refresh server data
 			serverFound.refresh();
-			Optional<RegisteredServer> registeredServer = plugin.proxy().getServer(serverFound.getName());
-			player.sendMessage(Component.text("Trying "+server.get().getName()).color(NamedTextColor.YELLOW));
-			// Check if server exists
-			if (registeredServer.isPresent()) {
-				RegisteredServer registeredServer2 = registeredServer.get();
+			player.sendMessage(Component.text("Trying "+serverFound.getName()).color(NamedTextColor.YELLOW));
+			if (serverFound instanceof SubServer subServer) {
 				// Check if server is online
-				try {
-					ServerPing ping = registeredServer2.ping().get();
-					if (ping != null) {
-						found = true;
-						// We have found a valid server, set the reference
-						server.set(serverFound);
-					}
-				} catch (Exception e) {
-					plugin.logger().error("An error occured whilst forawrding a player", e);
+				if (subServer.isOnline()) {
+					found = true;
+					server.set(serverFound);
 				}
+			} else {
+				Optional<RegisteredServer> registeredServer = plugin.proxy().getServer(serverFound.getName());
+				// Check if server exists
+				if (registeredServer.isPresent()) {
+					RegisteredServer registeredServer2 = registeredServer.get();
+					// Check if server is online
+					try {
+						ServerPing ping = registeredServer2.ping().get();
+						if (ping != null) {
+							found = true;
+							// We have found a valid server, set the reference
+							server.set(serverFound);
+						}
+					} catch (Exception e) {
+						plugin.logger().error("An error occurred whilst checking a server", e);
+					}
+				}
+			}
+			if (!found) {
 				// Display result
-				player.sendMessage(Component.text(server.get().getName()+" is not online. Finding another ...").color(NamedTextColor.YELLOW));
+				player.sendMessage(Component.text(server.get().getName() + " is not online. Finding another...").color(NamedTextColor.YELLOW));
 			}
 		}
 
 		// Check if we have found a server
-		if (found && server.get() != null) {
-			// Send message to player
-			player.sendMessage(Component.text("Teleporting to "+server.get().getName()).color(NamedTextColor.GREEN));
-
+		if (server.get() != null) {
 			plugin.subAPI().getRemotePlayer(player.getUsername(), (remotePlayer) -> {
 				remotePlayer.getServer((playerServer) -> {
 					// Get the groups of the server the player is connected to
@@ -95,15 +105,18 @@ public class LobbyCommand implements SimpleCommand {
 						player.sendMessage(Component.text("You are already connected to a lobby.").color(NamedTextColor.RED));
 						return;
 					}
+					// Send message to player
+					player.sendMessage(Component.text("Teleporting to "+server.get().getName()).color(NamedTextColor.GREEN));
 					// Create a task to run later
 					plugin.proxy().getScheduler()
 					.buildTask(plugin, () -> {
 						remotePlayer.transfer(server.get().getName());
 					})
-					.repeat(3L, TimeUnit.SECONDS)
+					.repeat(2L, TimeUnit.SECONDS)
 					.schedule();
 				});
 			});
+			return;
 		}
 		player.sendMessage(Component.text("No lobbies are online, try again later.").color(NamedTextColor.YELLOW));
 	}
