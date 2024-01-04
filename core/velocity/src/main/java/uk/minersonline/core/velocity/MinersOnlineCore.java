@@ -81,6 +81,7 @@ public class MinersOnlineCore {
 		this.subAPI().getRemotePlayer(player.getUsername(), (remotePlayer) -> {
 			final Component header = Component.text("Miners Online", NamedTextColor.GOLD);
 			final Component footer = Component.text("You are on "+remotePlayer.getServerName(), NamedTextColor.AQUA);
+			player.getTabList().clearHeaderAndFooter();
 			player.sendPlayerListHeaderAndFooter(header, footer);
 		});
 	}
