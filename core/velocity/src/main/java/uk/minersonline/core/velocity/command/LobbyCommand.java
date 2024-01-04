@@ -40,7 +40,7 @@ public class LobbyCommand implements SimpleCommand {
 					.buildTask(plugin, () -> {
 						Collection<RegisteredServer> registeredServers = plugin.proxy().matchServer(server.getName());
 						RegisteredServer found = (RegisteredServer) registeredServers.toArray()[0];
-						player.createConnectionRequest(found).connectWithIndication()            ;
+						player.createConnectionRequest(found).connectWithIndication();
 					})
 					.repeat(3L, TimeUnit.MINUTES)
 					.schedule();
