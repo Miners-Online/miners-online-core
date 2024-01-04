@@ -100,7 +100,7 @@ public class LobbyCommand implements SimpleCommand {
 					.buildTask(plugin, () -> {
 						remotePlayer.transfer(server.get().getName());
 					})
-					.repeat(3L, TimeUnit.MINUTES)
+					.repeat(3L, TimeUnit.SECONDS)
 					.schedule();
 				});
 			});
