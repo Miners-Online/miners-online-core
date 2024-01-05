@@ -72,10 +72,13 @@ public class LobbyCommand implements SimpleCommand {
 	}
 
 	/**
+	 * <p>
 	 * This matchServer function will find the best server in a {@link Collection}("<code>servers</code>") to transfer the
 	 * {@link Player}("<code>player</code>") to. Currentlly, "best server" means any server that is online and part of a "Lobby" group.
-	 * 
+	 * </p>
+	 * <p>
 	 * Any {@link Exception}s are logged to the plugin's logger.
+	 * </p>
 	 * 
 	 * @param servers a {@link Collection} of servers to choose from.
 	 * @param player a {@link Player} that will be transfered to the chossen server.
