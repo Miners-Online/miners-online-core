@@ -92,7 +92,7 @@ public class MinersOnlineCore {
 	@Subscribe
 	public void onProxyPingEvent(ProxyPingEvent event) {
 		ServerPing.Builder builder = event.getPing().asBuilder();
-		builder.version(new ServerPing.Version(event.getPing().getVersion().getProtocol(), "Miners Inline"));
+		builder.version(new ServerPing.Version(event.getPing().getVersion().getProtocol(), "Miners Online"));
 		event.setPing(builder.build());
 	}
 
