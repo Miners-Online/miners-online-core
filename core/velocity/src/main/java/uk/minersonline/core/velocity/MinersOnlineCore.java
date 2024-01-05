@@ -26,6 +26,11 @@ import java.util.Collection;
 import java.util.Objects;
 import java.util.UUID;
 
+/**
+ * The MinersOnlineCore class is the core of the Velocity plugin, it handles initilisation and links everything together, such as commands and events.
+ * @since 1.0
+ * @author ajh123
+ */
 @Plugin(
 		id = "miners_online_core",
 		name = "MinersOnlineCore",
@@ -48,6 +53,15 @@ public class MinersOnlineCore {
 		this.logger = logger;
     }
 
+
+    /**
+     * This subAPI function returns an instance to a {@link SubAPI} which allows access to the Sub Servers 2 dynamic servers API.
+     * 
+     * @return a {@link SubAPI} instance if the plugin has been enabled.
+     * @throws IllegalStateException if the plugin has not been initilised or it has been disabled.
+	 * @since 1.0
+	 * @author ajh123
+	 */
 	public SubAPI subAPI() {
         if (this.subAPI == null) {
             throw new IllegalStateException("Tried to access SubAPI when the plugin was disabled!");
@@ -55,10 +69,24 @@ public class MinersOnlineCore {
         return this.subAPI;
     }
 
+    /**
+     * This proxy function returns an instance to a {@link ProxyServer} which allows access to information about the current proxy.
+     * 
+     * @return a {@link ProxyServer} instance.
+     * @since 1.0
+	 * @author ajh123
+	 */
 	public ProxyServer proxy() {
         return this.proxy;
     }
 
+    /**
+     * This logger function returns an instance to a {@link Logger} which allows access to debug logging.
+     * 
+     * @return a {@link Logger} instance.
+	 * @since 1.0
+	 * @author ajh123
+	 */
 	public Logger logger() {
         return this.logger;
     }

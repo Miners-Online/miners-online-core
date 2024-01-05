@@ -7,10 +7,23 @@ import uk.minersonline.core.spigot.display.JoinLeaveManager;
 
 import java.util.logging.Level;
 
+/**
+ * The MinersOnlineCore class is the core of the Spigot plugin, it handles initilisation and links everything together, such as commands and events.
+ * @since 1.0
+ * @author ajh123
+ */
 public final class MinersOnlineCore extends JavaPlugin {
     private BukkitAudiences adventure;
     private SubAPI subAPI;
 
+    /**
+     * This adventure function return an instance to a {@link BukkitAudiences} which allows access to the Advanture text formatting API.
+     * 
+     * @return a {@link BukkitAudiences} instance if the plugin has been enabled.
+     * @throws IllegalStateException if the plugin has not been initilised or it has been disabled.
+     * @since 1.0
+     * @author ajh123
+     */
     public BukkitAudiences adventure() {
         if (this.adventure == null) {
             throw new IllegalStateException("Tried to access Adventure when the plugin was disabled!");
@@ -18,6 +31,14 @@ public final class MinersOnlineCore extends JavaPlugin {
         return this.adventure;
     }
 
+    /**
+     * This subAPI function return an instance to a {@link SubAPI} which allows access to the Sub Servers 2 dynamic servers API.
+     * 
+     * @return a {@link SubAPI} instance if the plugin has been enabled.
+     * @throws IllegalStateException if the plugin has not been initilised or it has been disabled.
+     * @since 1.0
+     * @author ajh123
+     */
     public SubAPI subAPI() {
         if (this.subAPI == null) {
             throw new IllegalStateException("Tried to access SubAPI when the plugin was disabled!");

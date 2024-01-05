@@ -18,6 +18,12 @@ import java.util.Optional;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicReference;
 
+/**
+ * The LobbyCommand is a command that allows players to switch to an available Lobby on the network.
+ * 
+ * @author ajh123
+ * @since 1.0
+ */
 public class LobbyCommand implements SimpleCommand {
 	private final MinersOnlineCore plugin;
 
@@ -49,12 +55,33 @@ public class LobbyCommand implements SimpleCommand {
 		return invocation.source().hasPermission("minersonline.commands.lobby");
 	}
 
+	/**
+	 * The random function takes a {@link Collection} of generic type {@link T}, this function will choose a random object from the {@link Collection} and
+	 * return it.
+	 * 
+	 * @param <T> the type of the object in the {@link Collection} "<code>coll</code>".
+	 * @param coll the {@link Collection} the list of objects to choose from.
+	 * @return an object of type {@link T} that was randomlly chosen.
+	 * @author ajh123
+	 * @since 1.0
+	 */
 	public static <T> T random(Collection<T> coll) {
 		int num = (int) (Math.random() * coll.size());
 		for(T t: coll) if (--num < 0) return t;
 		throw new AssertionError();
 	}
 
+	/**
+	 * This matchServer function will find the best server in a {@link Collection}("<code>servers</code>") to transfer the
+	 * {@link Player}("<code>player</code>") to. Currentlly, "best server" means any server that is online and part of a "Lobby" group.
+	 * 
+	 * Any {@link Exception}s are logged to the plugin's logger.
+	 * 
+	 * @param servers a {@link Collection} of servers to choose from.
+	 * @param player a {@link Player} that will be transfered to the chossen server.
+	 * @author ajh123
+	 * @since 1.0
+	 */
 	public void matchServer(Collection<? extends Server> servers, Player player) {
 		boolean found = false;
 		AtomicReference<Server> server = new AtomicReference<>();
