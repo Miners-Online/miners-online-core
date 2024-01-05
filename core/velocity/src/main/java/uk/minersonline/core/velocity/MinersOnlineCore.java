@@ -2,7 +2,6 @@ package uk.minersonline.core.velocity;
 
 import com.google.inject.Inject;
 import com.velocitypowered.api.event.proxy.ProxyInitializeEvent;
-import com.velocitypowered.api.event.proxy.ProxyPingEvent;
 import com.velocitypowered.api.event.proxy.ProxyShutdownEvent;
 import com.velocitypowered.api.command.CommandManager;
 import com.velocitypowered.api.command.CommandMeta;
@@ -12,7 +11,6 @@ import com.velocitypowered.api.plugin.Dependency;
 import com.velocitypowered.api.plugin.Plugin;
 import com.velocitypowered.api.proxy.Player;
 import com.velocitypowered.api.proxy.ProxyServer;
-import com.velocitypowered.api.proxy.server.ServerPing;
 
 import net.ME1312.Galaxi.Library.Container.Pair;
 import net.ME1312.SubServers.Client.Common.Network.API.Server;
@@ -115,13 +113,6 @@ public class MinersOnlineCore {
 		if (this.subAPI != null) {
 			this.subAPI = null;
 		}
-	}
-
-	@Subscribe
-	public void onProxyPingEvent(ProxyPingEvent event) {
-		ServerPing.Builder builder = event.getPing().asBuilder();
-		builder.version(new ServerPing.Version(event.getPing().getVersion().getProtocol(), "Miners Online"));
-		event.setPing(builder.build());
 	}
 
 	@Subscribe
