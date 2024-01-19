@@ -16,6 +16,8 @@ public final class MinersOnlineCore extends JavaPlugin {
     private BukkitAudiences adventure;
     private SubAPI subAPI;
 
+    public static final boolean JOIN_MESSAGES_ENABLED = false;
+
     /**
      * This adventure function return an instance to a {@link BukkitAudiences} which allows access to the Advanture text formatting API.
      * 
@@ -55,7 +57,9 @@ public final class MinersOnlineCore extends JavaPlugin {
         // Plugin startup logic
 
         // Event handlers
-        getServer().getPluginManager().registerEvents(new JoinLeaveManager(this), this);
+        if (JOIN_MESSAGES_ENABLED) {
+            getServer().getPluginManager().registerEvents(new JoinLeaveManager(this), this);
+        }
         // Plugin channels
         getServer().getMessenger().registerOutgoingPluginChannel(this, "BungeeCord");
 
