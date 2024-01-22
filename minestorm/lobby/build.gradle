@@ -1,0 +1,21 @@
+plugins {
+    id 'java'
+}
+
+group = 'uk.minersonline.minestorm.lobby'
+version = 'minersonline.lobby'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.9.1')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    implementation 'dev.hollowcube:minestom-ce:5347c0b11f'
+}
+
+test {
+    useJUnitPlatform()
+}
