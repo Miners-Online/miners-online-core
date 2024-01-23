@@ -2,6 +2,6 @@ rootProject.name = 'minersonline'
 include ':core'
 include ':core:spigot'
 include ':core:velocity'
-include ':minestorm'
-include ':minestorm:lobby'
+include ':minestom'
+include ':minestom:lobby'
 

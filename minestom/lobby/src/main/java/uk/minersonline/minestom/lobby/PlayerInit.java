@@ -1,4 +1,4 @@
-package uk.minersonline.minestorm.lobby;
+package uk.minersonline.minestom.lobby;
 
 import net.kyori.adventure.sound.Sound;
 import net.kyori.adventure.text.Component;
@@ -37,7 +37,7 @@ public class PlayerInit {
 		globalEventHandler.addListener(AsyncPlayerConfigurationEvent.class, event -> {
 			final Player player = event.getPlayer();
 			event.setSpawningInstance(instanceContainer);
-			player.setRespawnPoint(new Pos(-264, 18, 108));
+			player.setRespawnPoint(new Pos(-264.5, 18, 108.5));
 		})
 		.addListener(PlayerSpawnEvent.class, event -> {
 			if (event.isFirstSpawn()) {
@@ -55,6 +55,7 @@ public class PlayerInit {
 		.addListener(PlayerBlockPlaceEvent.class, event -> event.setCancelled(true))
 		.addListener(PlayerSwapItemEvent.class, event -> event.setCancelled(true))
 		.addListener(PlayerUseItemEvent.class, event -> event.setCancelled(true))
+		.addListener(PlayerPreEatEvent.class, event -> event.setCancelled(true))
 		.addListener(ItemDropEvent.class, event -> event.setCancelled(true))
 		.addListener(PickupItemEvent.class, event -> {
 			final Entity entity = event.getLivingEntity();
@@ -65,7 +66,7 @@ public class PlayerInit {
 		.addListener(PlayerMoveEvent.class, event -> {
 			Pos playerPos = event.getPlayer().getPosition();
 			if (instanceContainer.getBlock(playerPos.blockX(), playerPos.blockY(), playerPos.blockZ()) == Block.LIGHT_WEIGHTED_PRESSURE_PLATE) {
-				Vec vector = playerPos.direction().mul(20.5D).withY(playerPos.y()+10.0D);
+				Vec vector = playerPos.direction().mul(30.5D).withY(playerPos.y()+10.0D);
 				event.getPlayer().setVelocity(vector);
 				event.getPlayer().playEffect(
 						Effects.BAT_TAKES_OFF,

@@ -2,7 +2,7 @@ plugins {
     id 'java'
 }
 
-group = 'uk.minersonline.minestorm.lobby'
+group = 'uk.minersonline.minestom.lobby'
 version = 'minersonline.lobby'
 
 repositories {
@@ -18,4 +18,14 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'uk.minersonline.minestom.lobby.Main'
+    }
+    from {
+        duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
 }
