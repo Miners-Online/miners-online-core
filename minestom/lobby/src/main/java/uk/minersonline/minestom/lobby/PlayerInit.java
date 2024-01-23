@@ -9,7 +9,6 @@ import net.minestom.server.advancements.notifications.Notification;
 import net.minestom.server.advancements.notifications.NotificationCenter;
 import net.minestom.server.coordinate.Pos;
 import net.minestom.server.coordinate.Vec;
-import net.minestom.server.effects.Effects;
 import net.minestom.server.entity.Entity;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
@@ -23,6 +22,7 @@ import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.Material;
 import net.minestom.server.sound.SoundEvent;
+import net.minestom.server.timer.Scheduler;
 
 public class PlayerInit {
 	public static void init() {
@@ -50,6 +50,11 @@ public class PlayerInit {
 				event.getPlayer().sendMessage(Component.text("Welcome to Miners Online!", NamedTextColor.YELLOW));
 			}
 		})
+		.addListener(PlayerMoveEvent.class, event -> {
+			if (event.getNewPosition().y() < -20) {
+				event.getPlayer().teleport(new Pos(-264.5, 18, 108.5));
+			}
+		})
 		.addListener(PlayerBlockBreakEvent.class, event -> event.setCancelled(true))
 		.addListener(PlayerBlockInteractEvent.class, event -> event.setCancelled(true))
 		.addListener(PlayerBlockPlaceEvent.class, event -> event.setCancelled(true))
@@ -66,17 +71,20 @@ public class PlayerInit {
 		.addListener(PlayerMoveEvent.class, event -> {
 			Pos playerPos = event.getPlayer().getPosition();
 			if (instanceContainer.getBlock(playerPos.blockX(), playerPos.blockY(), playerPos.blockZ()) == Block.LIGHT_WEIGHTED_PRESSURE_PLATE) {
-				Vec vector = playerPos.direction().mul(30.5D).withY(playerPos.y()+10.0D);
+				Vec vector = playerPos.direction().mul(30.5D).withY(playerPos.y()+7.0D);
 				event.getPlayer().setVelocity(vector);
-				event.getPlayer().playEffect(
-						Effects.BAT_TAKES_OFF,
-						playerPos.blockX(), playerPos.blockY(), playerPos.blockZ(), 0, true);
-				event.getPlayer().playSound(Sound.sound(
-						SoundEvent.fromNamespaceId("minecraft:entity.bat.takeoff").key(),
-						Sound.Source.BLOCK,
-						1.0f,
-						1.0f
-				));
+
+				Scheduler scheduler = event.getPlayer().scheduler();
+				scheduler.scheduleNextTick(() -> {
+					for (int i = 0; i <= 5; i ++) {
+						event.getPlayer().playSound(Sound.sound(
+							SoundEvent.fromNamespaceId("minecraft:block.piston.extend").key(),
+							Sound.Source.BLOCK,
+							1.0f,
+							1.0f
+						));
+					}
+				});
 			}
 		});
 	}
