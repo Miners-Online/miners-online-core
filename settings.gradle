@@ -1,7 +1,17 @@
+pluginManagement {
+    repositories {
+        maven {
+            name = 'Fabric'
+            url = 'https://maven.fabricmc.net/'
+        }
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
 rootProject.name = 'minersonline'
 include ':core'
 include ':core:spigot'
 include ':core:velocity'
 include ':minestom'
 include ':minestom:lobby'
-
