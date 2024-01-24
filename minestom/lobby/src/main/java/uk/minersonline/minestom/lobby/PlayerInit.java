@@ -22,7 +22,6 @@ import net.minestom.server.instance.LightingChunk;
 import net.minestom.server.instance.block.Block;
 import net.minestom.server.item.Material;
 import net.minestom.server.sound.SoundEvent;
-import net.minestom.server.timer.Scheduler;
 
 public class PlayerInit {
 	public static void init() {
@@ -75,12 +74,14 @@ public class PlayerInit {
 				event.getPlayer().setVelocity(vector);
 
 				for (int i = 0; i <= 5; i ++) {
-					event.getPlayer().playSound(Sound.sound(
-						SoundEvent.fromNamespaceId("minecraft:block.piston.extend").key(),
-						Sound.Source.BLOCK,
-						1.0f,
-						1.0f
-					));
+					SoundEvent sound = SoundEvent.fromNamespaceId("minecraft:block.piston.extend");
+					if (sound != null) {
+						event.getPlayer().playSound(Sound.sound(sound.key(),
+							Sound.Source.BLOCK,
+							1.0f,
+							1.0f
+						));
+					}
 				}
 			}
 		});
