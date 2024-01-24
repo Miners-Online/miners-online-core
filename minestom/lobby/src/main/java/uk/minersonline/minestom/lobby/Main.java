@@ -15,6 +15,7 @@ public class Main {
 
 		// Initialization
 		MinecraftServer server = MinecraftServer.init();
+		MapModInit.init();
 		PlayerInit.init();
 
 		switch (Settings.getMode()) {
