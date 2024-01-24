@@ -74,17 +74,14 @@ public class PlayerInit {
 				Vec vector = playerPos.direction().mul(30.5D).withY(playerPos.y()+7.0D);
 				event.getPlayer().setVelocity(vector);
 
-				Scheduler scheduler = event.getPlayer().scheduler();
-				scheduler.scheduleNextTick(() -> {
-					for (int i = 0; i <= 5; i ++) {
-						event.getPlayer().playSound(Sound.sound(
-							SoundEvent.fromNamespaceId("minecraft:block.piston.extend").key(),
-							Sound.Source.BLOCK,
-							1.0f,
-							1.0f
-						));
-					}
-				});
+				for (int i = 0; i <= 5; i ++) {
+					event.getPlayer().playSound(Sound.sound(
+						SoundEvent.fromNamespaceId("minecraft:block.piston.extend").key(),
+						Sound.Source.BLOCK,
+						1.0f,
+						1.0f
+					));
+				}
 			}
 		});
 	}
