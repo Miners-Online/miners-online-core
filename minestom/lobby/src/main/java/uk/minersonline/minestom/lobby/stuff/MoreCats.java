@@ -1,9 +1,17 @@
 package uk.minersonline.minestom.lobby.stuff;
 
 import net.minestom.server.MinecraftServer;
+import net.minestom.server.command.CommandManager;
+import net.minestom.server.command.CommandSender;
+import net.minestom.server.command.builder.Command;
+import net.minestom.server.command.builder.CommandContext;
+import net.minestom.server.command.builder.condition.Conditions;
+import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerChatEvent;
 import net.minestom.server.event.player.PlayerSpawnEvent;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 
@@ -13,7 +21,7 @@ import java.util.*;
  * The program will keep track of the number of cats and will output the count when the user
  * chats anything that is not "yes".
  */
-public class MoreCats {
+public class MoreCats extends Command {
 	/**
 	 * The catCount map keeps track of the number of cats the player wants. It is a map because
 	 * there can be multiple players on a Minecraft server at once.
@@ -25,19 +33,29 @@ public class MoreCats {
 	 */
 	private final static Map<UUID, Boolean> isRunning = new HashMap<>();
 
+	public MoreCats() {
+		super("cats");
+
+		setCondition(Conditions::playerOnly);
+		setDefaultExecutor(this::execute);
+	}
+
+	private void execute(CommandSender sender, CommandContext context) {
+		if (sender instanceof Player player) {
+			player.sendMessage("How many cats do you want? Please chat \"yes\" multiple times for the number of cats you want.");
+			isRunning.put(player.getUuid(), true);
+		}
+	}
+
 	/**
 	 * The init method initialises the MoreCats class, this method will add event handlers to
 	 * the server.
 	 */
 	public static void init() {
+		CommandManager commandManager = MinecraftServer.getCommandManager();
+		commandManager.register(new MoreCats());
+
 		GlobalEventHandler globalEventHandler = MinecraftServer.getGlobalEventHandler();
-
-		// When the player connects will ask them how many cats do they want.
-		globalEventHandler.addListener(PlayerSpawnEvent.class, event -> {
-			event.getPlayer().sendMessage("How many cats do you want? Please chat \"yes\" multiple times for the number of cats you want.");
-			isRunning.put(event.getPlayer().getUuid(), true);
-		});
-
 		// This event handler will listen for chat messages from the player.
 		globalEventHandler.addListener(PlayerChatEvent.class, event -> {
 			// We only want to count cats if the player wants to.
