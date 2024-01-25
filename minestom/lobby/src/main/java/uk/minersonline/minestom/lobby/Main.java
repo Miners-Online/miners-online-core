@@ -16,6 +16,7 @@ public class Main {
 
 		// Initialization
 		MinecraftServer server = MinecraftServer.init();
+		MinecraftServer.setBrandName("minersonline");
 		MapModInit.init();
 		PlayerInit.init();
 		MoreCats.init();

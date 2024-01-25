@@ -56,7 +56,7 @@ public class MoreCats extends Command {
 				}
 				// Get the current cat count.
 				int curCatCount = catCount.get(player.getUuid());
-				// Append the new count to the current count.
+	 			// Append the new count to the current count.
 				catCount.put(player.getUuid(), curCatCount + newCatCount);
 				// Create a message telling the user the new cats.
 				player.sendMessage("You now have "+(curCatCount+newCatCount)+" cat(s)");
