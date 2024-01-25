@@ -1,5 +1,6 @@
 package uk.minersonline.minestom.lobby.stuff;
 
+import net.kyori.adventure.text.Component;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.command.CommandSender;
@@ -7,6 +8,8 @@ import net.minestom.server.command.builder.Command;
 import net.minestom.server.command.builder.CommandContext;
 import net.minestom.server.command.builder.arguments.ArgumentType;
 import net.minestom.server.command.builder.condition.Conditions;
+import net.minestom.server.entity.EntityCreature;
+import net.minestom.server.entity.EntityType;
 import net.minestom.server.entity.Player;
 import net.minestom.server.event.GlobalEventHandler;
 import net.minestom.server.event.player.PlayerChatEvent;
@@ -57,6 +60,7 @@ public class MoreCats extends Command {
 				catCount.put(player.getUuid(), curCatCount + newCatCount);
 				// Create a message telling the user the new cats.
 				player.sendMessage("You now have "+(curCatCount+newCatCount)+" cat(s)");
+				summonCats(player, (curCatCount+newCatCount));
 			}
 		}, newCats);
 
@@ -88,7 +92,7 @@ public class MoreCats extends Command {
 		// This event handler will listen for chat messages from the player.
 		globalEventHandler.addListener(PlayerChatEvent.class, event -> {
 			// We only want to count cats if the player wants to.
-			if (isRunning.get(event.getPlayer().getUuid())) {
+			if (isRunning.containsKey(event.getPlayer().getUuid()) && isRunning.get(event.getPlayer().getUuid())) {
 				// Cancel any chat messages so there is no spam.
 				event.setCancelled(true);
 				// Get the message from the player.
@@ -112,8 +116,18 @@ public class MoreCats extends Command {
 					int curCatCount = catCount.get(event.getPlayer().getUuid());
 					isRunning.put(event.getPlayer().getUuid(), false);
 					event.getPlayer().sendMessage("You now have "+curCatCount+" cat(s)");
+					summonCats(event.getPlayer(), curCatCount);
 				}
 			}
 		});
+	}
+
+	private static void summonCats(Player player, int count) {
+		for (int cats = 0; cats <= count; cats++) {
+			var cat = new EntityCreature(EntityType.CAT);
+			cat.setCustomName(player.getName().append(Component.text("'s cat")));
+			cat.setInvulnerable(false);
+			cat.setInstance(player.getInstance(), player.getPosition());
+		}
 	}
 }
