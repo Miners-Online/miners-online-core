@@ -177,7 +177,7 @@ public class MoreCats extends Command {
 
 	private static void summonCats(Player player, int count) {
 		for (int cats = 0; cats <= count; cats++) {
-			var cat = new EntityCreature(EntityType.CAT);
+			var cat = new CatCreature();
 			cat.setCustomName(player.getName().append(Component.text("'s cat")));
 			cat.setInvulnerable(false);
 			cat.setInstance(player.getInstance(), player.getPosition());
