@@ -34,10 +34,10 @@ public class MoreCats extends Command {
 	private final static Map<UUID, Boolean> isRunning = new HashMap<>();
 
 	public enum CatCommandMode {
-		ASK("ask"),
-		SET("set"),
-		RESET("reset"),
-		SUMMON("summon");
+		ask("ask"),
+		set("set"),
+		reset("reset"),
+		summon("summon");
 
 		private final String name;
 
@@ -59,14 +59,14 @@ public class MoreCats extends Command {
 		// If no arguments are provided we want default code to run.
 		setDefaultExecutor((sender, context) -> {
 			String commandName = context.getCommandName();
-			sender.sendMessage(Component.text("Usage: /" + commandName + " <ASK|RESET|SET> [cat_count]", NamedTextColor.RED));
+			sender.sendMessage(Component.text("Usage: /" + commandName + " <ask|reset|set> [cat_count]", NamedTextColor.RED));
 		});
 
 		// Create an enum argument
 		var commandNode = ArgumentType.Enum("mode", CatCommandMode.class);
 		addSyntax((sender, context) -> {
 			switch (context.get(commandNode)) {
-				case ASK -> {
+				case ask -> {
 					if (sender instanceof Player player) {
 						player.sendMessage("How many cats do you want? Please chat \"yes\" multiple times for the number of cats you want.");
 						isRunning.put(player.getUuid(), true);
@@ -75,17 +75,17 @@ public class MoreCats extends Command {
 						}
 					}
 				}
-				case SET -> {
+				case set -> {
 					String commandName = context.getCommandName();
-					sender.sendMessage(Component.text("Required parameter `cat_count` is missing, Usage: /" + commandName + " SET [cat_count]", NamedTextColor.RED));
+					sender.sendMessage(Component.text("Required parameter `cat_count` is missing, Usage: /" + commandName + " set [cat_count]", NamedTextColor.RED));
 				}
-				case RESET -> {
+				case reset -> {
 					if (sender instanceof Player player) {
 						player.sendMessage("Reset your cat count, you now have 0.");
 						catCount.put(player.getUuid(), 0);
 					}
 				}
-				case SUMMON -> {
+				case summon -> {
 					if (sender instanceof Player player) {
 						if (!catCount.containsKey(player.getUuid())) {
 							sender.sendMessage(Component.text("You need more then 0 cats.", NamedTextColor.RED));
@@ -105,14 +105,14 @@ public class MoreCats extends Command {
 		commandNode.setCallback((sender, exception) -> {
 			final String input = exception.getInput();
 			sender.sendMessage(Component.text("The mode " + input + " is invalid!", NamedTextColor.RED));
-			sender.sendMessage(Component.text("Please choose `ASK`, `SET`, or `RESET`.", NamedTextColor.RED));
+			sender.sendMessage(Component.text("Please choose `ask`, `set`, or `reset`.", NamedTextColor.RED));
 		});
 
 		// Create an integer argument
 		var newCats = ArgumentType.Integer("cat_count");
 		// Add code to be run when an integer is provided.
 		addSyntax((sender, context) -> {
-			if (context.get(commandNode) == CatCommandMode.SET) {
+			if (context.get(commandNode) == CatCommandMode.set) {
 				// Get the integer from the user.
 				final int newCatCount = context.get(newCats);
 				// Check if a player has run the command.
@@ -124,7 +124,7 @@ public class MoreCats extends Command {
 				}
 			} else {
 				sender.sendMessage(Component.text("The mode " + context.get(commandNode) + " is invalid!", NamedTextColor.RED));
-				sender.sendMessage(Component.text("You must use `SET`.", NamedTextColor.RED));
+				sender.sendMessage(Component.text("You must use `set`.", NamedTextColor.RED));
 			}
 		}, commandNode, newCats);
 
