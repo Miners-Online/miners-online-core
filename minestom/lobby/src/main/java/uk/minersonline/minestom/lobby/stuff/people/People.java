@@ -51,9 +51,8 @@ public class People extends Command {
         }, commandSpeak, name, phrase);
 
         setDefaultExecutor((sender, context) -> {
-            for (int i = 0; i < people.size(); i ++) {
-                Person person = people.get(i);
-                sender.sendMessage(person.getName() + " is " + person.getAge() + " years old and lives at "+person.getAddress()+". They have the UUID "+person.getUuid()+".");
+            for (Person person : people) {
+                sender.sendMessage(person.getName() + " is " + person.getAge() + " years old and lives at " + person.getAddress() + ". They have the UUID " + person.getUuid() + ".");
             }
         });
     }
