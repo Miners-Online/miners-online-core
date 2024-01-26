@@ -16,6 +16,6 @@ public class Person {
     }
 
     public String speak(String phrase) {
-        return name + " said " + phrase;
+        return this.name + " said " + phrase;
     }
 }
