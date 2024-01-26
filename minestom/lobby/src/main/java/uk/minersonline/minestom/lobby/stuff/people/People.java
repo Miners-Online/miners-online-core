@@ -22,10 +22,7 @@ public class People extends Command {
             String pName = context.get(name);
             int pAge = context.get(age);
             String pAddress = context.get(address);
-            Person person = new Person();
-            person.name = pName;
-            person.age = pAge;
-            person.address = pAddress;
+            Person person = new Person(pName, pAge, pAddress);
             people.add(person);
             sender.sendMessage("Added "+pName);
         }, commandAdd, name, age, address);
