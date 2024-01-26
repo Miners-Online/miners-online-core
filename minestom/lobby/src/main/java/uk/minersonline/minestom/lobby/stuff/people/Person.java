@@ -3,10 +3,10 @@ package uk.minersonline.minestom.lobby.stuff.people;
 import java.util.UUID;
 
 public class Person {
-    public UUID uuid;
-    public String name;
-    public int age;
-    public String address;
+    private final UUID uuid;
+    private String name;
+    private int age;
+    private String address;
 
     public Person(String name, int age, String address) {
         this.uuid = UUID.randomUUID();
@@ -17,5 +17,21 @@ public class Person {
 
     public String speak(String phrase) {
         return this.name + " said " + phrase;
+    }
+
+    public UUID getUuid() {
+        return uuid;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public String getAddress() {
+        return address;
     }
 }

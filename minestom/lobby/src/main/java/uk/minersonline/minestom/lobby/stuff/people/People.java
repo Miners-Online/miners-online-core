@@ -34,7 +34,7 @@ public class People extends Command {
 
         addSyntax((sender, context) -> {
             for (Person person : people) {
-                if (person.uuid.equals(context.get(uuid))) {
+                if (person.getUuid().equals(context.get(uuid))) {
                     sender.sendMessage(person.speak(context.get(phrase)));
                     break;
                 }
@@ -43,7 +43,7 @@ public class People extends Command {
 
         addSyntax((sender, context) -> {
             for (Person person : people) {
-                if (person.name.equals(context.get(name))) {
+                if (person.getName().equals(context.get(name))) {
                     sender.sendMessage(person.speak(context.get(phrase)));
                     break;
                 }
@@ -53,7 +53,7 @@ public class People extends Command {
         setDefaultExecutor((sender, context) -> {
             for (int i = 0; i < people.size(); i ++) {
                 Person person = people.get(i);
-                sender.sendMessage(person.name + " is " + person.age + " years old and lives at "+person.address+". They have the UUID "+person.uuid+".");
+                sender.sendMessage(person.getName() + " is " + person.getAge() + " years old and lives at "+person.getAddress()+". They have the UUID "+person.getUuid()+".");
             }
         });
     }
