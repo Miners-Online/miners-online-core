@@ -5,6 +5,7 @@ import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
 import net.minestom.server.extras.velocity.VelocityProxy;
 import uk.minersonline.minestom.lobby.stuff.MoreCats;
+import uk.minersonline.minestom.lobby.stuff.People;
 
 
 public class Main {
@@ -19,6 +20,7 @@ public class Main {
 		MinecraftServer.setBrandName("minersonline");
 		MapModInit.init();
 		PlayerInit.init();
+		People.init();
 		MoreCats.init();
 
 		switch (Settings.getMode()) {
