@@ -1,4 +1,4 @@
-package uk.minersonline.minestom.lobby.stuff;
+package uk.minersonline.minestom.lobby.stuff.cats;
 
 import net.kyori.adventure.sound.Sound;
 import net.minestom.server.entity.EntityCreature;

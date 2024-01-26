@@ -4,8 +4,8 @@ import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
 import net.minestom.server.extras.velocity.VelocityProxy;
-import uk.minersonline.minestom.lobby.stuff.MoreCats;
-import uk.minersonline.minestom.lobby.stuff.People;
+import uk.minersonline.minestom.lobby.stuff.cats.MoreCats;
+import uk.minersonline.minestom.lobby.stuff.people.People;
 
 
 public class Main {

@@ -1,7 +1,5 @@
-package uk.minersonline.minestom.lobby.stuff;
+package uk.minersonline.minestom.lobby.stuff.people;
 
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.command.CommandManager;
 import net.minestom.server.command.builder.Command;

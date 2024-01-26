@@ -1,4 +1,4 @@
-package uk.minersonline.minestom.lobby.stuff;
+package uk.minersonline.minestom.lobby.stuff.cats;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.format.NamedTextColor;

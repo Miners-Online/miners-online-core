@@ -1,4 +1,4 @@
-package uk.minersonline.minestom.lobby.stuff;
+package uk.minersonline.minestom.lobby.stuff.people;
 
 public class Person {
     public String name;
