@@ -11,9 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class People extends Command {
-    private final List<String> names = new ArrayList<>();
-    private final List<Integer> ages = new ArrayList<>();
-    private final List<String> addresses = new ArrayList<>();
+    private final List<Person> people = new ArrayList<>();
 
     public People() {
         super("people");
@@ -26,18 +24,18 @@ public class People extends Command {
             String pName = context.get(name);
             int pAge = context.get(age);
             String pAddress = context.get(address);
-            names.add(pName);
-            ages.add(pAge);
-            addresses.add(pAddress);
+            Person person = new Person();
+            person.name = pName;
+            person.age = pAge;
+            person.address = pAddress;
+            people.add(person);
             sender.sendMessage("Added "+pName);
         }, commandAdd, name, age, address);
 
         setDefaultExecutor((sender, context) -> {
-            for (int i = 0; i < names.size(); i ++) {
-                String pName = names.get(i);
-                int pAge = ages.get(i);
-                String pAddress = addresses.get(i);
-                sender.sendMessage(pName + " is " + pAge + " years old and lives at "+pAddress+".");
+            for (int i = 0; i < people.size(); i ++) {
+                Person person = people.get(i);
+                sender.sendMessage(person.name + " is " + person.age + " years old and lives at "+person.address+".");
             }
         });
     }
