@@ -18,6 +18,11 @@ public class People extends Command {
         var name = ArgumentType.String("name");
         var age = ArgumentType.Integer("age");
         var address = ArgumentType.String("address");
+
+        var commandSpeak = ArgumentType.Literal("speak");
+        var uuid = ArgumentType.UUID("uuid");
+        var phrase = ArgumentType.String("phrase");
+
         addSyntax((sender, context) -> {
             String pName = context.get(name);
             int pAge = context.get(age);
@@ -27,10 +32,28 @@ public class People extends Command {
             sender.sendMessage("Added "+pName);
         }, commandAdd, name, age, address);
 
+        addSyntax((sender, context) -> {
+            for (Person person : people) {
+                if (person.uuid.equals(context.get(uuid))) {
+                    sender.sendMessage(person.speak(context.get(phrase)));
+                    break;
+                }
+            }
+        }, commandSpeak, uuid, phrase);
+
+        addSyntax((sender, context) -> {
+            for (Person person : people) {
+                if (person.name.equals(context.get(name))) {
+                    sender.sendMessage(person.speak(context.get(phrase)));
+                    break;
+                }
+            }
+        }, commandSpeak, name, phrase);
+
         setDefaultExecutor((sender, context) -> {
             for (int i = 0; i < people.size(); i ++) {
                 Person person = people.get(i);
-                sender.sendMessage(person.name + " is " + person.age + " years old and lives at "+person.address+".");
+                sender.sendMessage(person.name + " is " + person.age + " years old and lives at "+person.address+". They have the UUID "+person.uuid+".");
             }
         });
     }
