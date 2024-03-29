@@ -10,10 +10,14 @@ repositories {
     maven { url 'https://jitpack.io' }
 }
 
+targetCompatibility = 21
+sourceCompatibility = 21
+
 dependencies {
     testImplementation platform('org.junit:junit-bom:5.9.1')
     testImplementation 'org.junit.jupiter:junit-jupiter'
-    implementation 'dev.hollowcube:minestom-ce:5347c0b11f'
+    implementation 'net.minestom:minestom-snapshots:7320437640'
+    implementation 'dev.hollowcube:minestom-ce-extensions:1.2.0'
     implementation 'org.slf4j:slf4j-jdk14:2.0.0'
 }
 

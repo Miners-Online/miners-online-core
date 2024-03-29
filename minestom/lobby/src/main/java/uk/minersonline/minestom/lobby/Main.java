@@ -1,9 +1,11 @@
 package uk.minersonline.minestom.lobby;
 
+import net.hollowcube.minestom.extensions.ExtensionBootstrap;
 import net.minestom.server.MinecraftServer;
 import net.minestom.server.extras.MojangAuth;
 import net.minestom.server.extras.bungee.BungeeCordProxy;
 import net.minestom.server.extras.velocity.VelocityProxy;
+import org.jetbrains.annotations.NotNull;
 import uk.minersonline.minestom.lobby.stuff.cats.MoreCats;
 import uk.minersonline.minestom.lobby.stuff.people.People;
 
@@ -16,7 +18,7 @@ public class Main {
 			System.setProperty("minestom.terminal.disabled", "");
 
 		// Initialization
-		MinecraftServer server = MinecraftServer.init();
+		ExtensionBootstrap server = ExtensionBootstrap.init();
 		MinecraftServer.setBrandName("minersonline");
 		MapModInit.init();
 		PlayerInit.init();
